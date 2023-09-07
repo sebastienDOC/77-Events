@@ -13,6 +13,11 @@ const EventList = () => {
   const { data, error } = useData();
   const [type, setType] = useState();
   const [currentPage, setCurrentPage] = useState(1);
+  // Tri par ordre croissants des évènements
+  const byDateEvents = data?.events.sort((evtA, evtB) =>
+    new Date(evtA.date) < new Date(evtB.date) ? - 1 : 1
+  );
+
   const filteredEvents = (
     (!type
       ? data?.events
@@ -35,7 +40,7 @@ const EventList = () => {
   return (
     <>
       {error && <div>An error occured</div>}
-      {data === null ? (
+      {byDateEvents === null ? (
         "loading"
       ) : (
         <>

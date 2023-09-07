@@ -9,13 +9,13 @@ const Slider = () => {
   const { data } = useData();
   const [index, setIndex] = useState(0);
   const byDateDesc = data?.focus.sort((evtA, evtB) =>
-    new Date(evtA.date) < new Date(evtB.date) ? 1 : - 1
+    new Date(evtA.date) < new Date(evtB.date) ? - 1 : 1
   );
   
   const nextCard = () => {
     setTimeout(() => {
       if (byDateDesc?.length > 0) {
-        setIndex(index < byDateDesc.length -1 ? index + 1 : 0)
+        setIndex(index < byDateDesc.length - 1 ? index + 1 : 0)
       }}, 
     5000
   );

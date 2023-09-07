@@ -20,6 +20,7 @@ const Select = ({
     setValue(newValue);
     setCollapsed(newValue);
   };
+
   return (
     <div className={`SelectContainer ${type}`} data-testid="select-testid">
       {label && <div className="label">{label}</div>}
@@ -37,7 +38,10 @@ const Select = ({
                 </li>
               )}
               {selection.map((s) => (
-                <li key={s} onClick={() => changeValue(s)}>
+                <li 
+                  key={s} 
+                  onClick={() => changeValue(s)}
+                >
                   <input
                     defaultChecked={value === s}
                     name="selected"
