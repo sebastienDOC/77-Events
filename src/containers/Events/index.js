@@ -7,40 +7,47 @@ import ModalEvent from "../ModalEvent";
 
 import "./style.css";
 
-const PER_PAGE = 9;
-
 const EventList = () => {
   const { data, error } = useData();
-  const [type, setType] = useState();
+  const [type, setType] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
-  // Tri par ordre croissants des évènements
-  const byDateEvents = data?.events.sort((evtA, evtB) =>
-    new Date(evtA.date) < new Date(evtB.date) ? - 1 : 1
-  );
+  const [paginate] = useState(9);
 
+  // Tri par ordre décroissants des events
+  const byDateEvents = data?.events.sort((evtA, evtB) =>
+    new Date(evtA.date) > new Date(evtB.date) ? - 1 : 1
+  );
+  
   const filteredEvents = (
-    (!type
+    (!type 
       ? data?.events
       : data?.events) || []
-  ).filter((event, index) => {
-    if (
-      (currentPage - 1) * PER_PAGE <= index &&
-      PER_PAGE * currentPage > index
-    ) {
+  )
+  // Fonctionnement du filtre des events
+  ?.filter((event) => type === null ? event : event.type === type)
+  ?.filter((event, index) => {
+    if ((currentPage - 1) * paginate <= index && currentPage * paginate > index) {
       return true;
     }
-    return false;
-  });
-  const changeType = (evtType) => {
+    return false;}
+  );
+  
+  const changeType = (evtType, ) => {
     setCurrentPage(1);
     setType(evtType);
   };
-  const pageNumber = Math.floor((filteredEvents?.length || 0) / PER_PAGE) + 1;
+
+  // Ternaire pagination en fonction du nombre d'events affichés
+  const pageNumber = filteredEvents.length < 9 ? Math.ceil((filteredEvents?.length || 0) / paginate) : Math.ceil((filteredEvents?.length || 0) / paginate) + 1;
   const typeList = new Set(data?.events.map((event) => event.type));
+
   return (
     <>
       {error && <div>An error occured</div>}
+
       {byDateEvents === null ? (
+      
+      // {data === null ? (
         "loading"
       ) : (
         <>
@@ -50,7 +57,8 @@ const EventList = () => {
             onChange={(value) => (value ? changeType(value) : changeType(null))}
           />
           <div id="events" className="ListContainer">
-            {filteredEvents.map((event) => (
+            {filteredEvents
+            ?.map((event) => (
               <Modal key={event.id} Content={<ModalEvent event={event} />}>
                 {({ setIsOpened }) => (
                   <EventCard

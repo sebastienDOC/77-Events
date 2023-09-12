@@ -2,7 +2,6 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import { useState } from "react";
 import PropTypes from "prop-types";
-
 import "./style.scss";
 
 const Select = ({
@@ -15,12 +14,14 @@ const Select = ({
 }) => {
   const [value, setValue] = useState();
   const [collapsed, setCollapsed] = useState(true);
-  const changeValue = (newValue) => {
-    onChange();
-    setValue(newValue);
-    setCollapsed(newValue);
-  };
 
+  const changeValue = (newValue) => { 
+    onChange(newValue);
+    setValue(newValue);
+    // Ajout de la fermeture de la collapse sur tous les boutons radios
+    setCollapsed(!collapsed); 
+  };
+  
   return (
     <div className={`SelectContainer ${type}`} data-testid="select-testid">
       {label && <div className="label">{label}</div>}
@@ -32,22 +33,26 @@ const Select = ({
           {!collapsed && (
             <>
               {!titleEmpty && (
-                <li onClick={() => changeValue(null)}>
-                  <input defaultChecked={!value} name="selected" type="radio" />{" "}
+                <li onClick={() => changeValue()}>
+                  <input 
+                    defaultChecked={!value} 
+                    name="selected" 
+                    type="radio" 
+                  />{" "}
                   Toutes
                 </li>
               )}
-              {selection.map((s) => (
+              {selection.map((evtType) => (
                 <li 
-                  key={s} 
-                  onClick={() => changeValue(s)}
+                  key={evtType} 
+                  onClick={() => changeValue(evtType)}
                 >
                   <input
-                    defaultChecked={value === s}
+                    defaultChecked={value === evtType}
                     name="selected"
                     type="radio"
                   />{" "}
-                  {s}
+                  {evtType}
                 </li>
               ))}
             </>

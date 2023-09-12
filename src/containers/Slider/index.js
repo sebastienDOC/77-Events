@@ -8,8 +8,9 @@ import "./style.scss";
 const Slider = () => {
   const { data } = useData();
   const [index, setIndex] = useState(0);
+  // Tri des slides par ordre décroissant
   const byDateDesc = data?.focus.sort((evtA, evtB) =>
-    new Date(evtA.date) < new Date(evtB.date) ? - 1 : 1
+    new Date(evtA.date) > new Date(evtB.date) ? - 1 : 1
   );
   
   const nextCard = () => {
@@ -18,7 +19,7 @@ const Slider = () => {
         setIndex(index < byDateDesc.length - 1 ? index + 1 : 0)
       }}, 
     5000
-  );
+    );
   };
   useEffect(() => {
     nextCard();
@@ -49,7 +50,7 @@ const Slider = () => {
                   type="radio"
                   name="radio-button"
                   checked={index === radioIdx}
-                  // onChange={() => setIndex(true)}
+                  // onChange={(e) => setIndex(e.target.index)}
                   readOnly
                 />
               ))}
