@@ -34,7 +34,11 @@ const ModalEvent = ({ event }) => (
 
 ModalEvent.propTypes = {
   // eslint-disable-next-line react/forbid-prop-types
-  event: PropTypes.any.isRequired,
+  event: PropTypes.any,
+}
+
+ModalEvent.defaultProps = {
+  event: "Evènement"
 }
 
 export default ModalEvent;

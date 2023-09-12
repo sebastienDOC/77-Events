@@ -8,22 +8,37 @@ import "./style.scss";
 const Slider = () => {
   const { data } = useData();
   const [index, setIndex] = useState(0);
+  // Ajout d'un state pour les boutons radio du slider
+  const [radioIndex, setRadioIndex] = useState(0);
   // Tri des slides par ordre décroissant
   const byDateDesc = data?.focus.sort((evtA, evtB) =>
     new Date(evtA.date) > new Date(evtB.date) ? - 1 : 1
   );
   
   const nextCard = () => {
-    setTimeout(() => {
-      if (byDateDesc?.length > 0) {
-        setIndex(index < byDateDesc.length - 1 ? index + 1 : 0)
-      }}, 
-    5000
-    );
+    // Ajout d'une condition pour que byDateDesc contienne plus 
+    // d'un élément et éviter "undefined"
+    if (byDateDesc?.length > 0) {
+      // Suppression slide blanche
+      const realIndex = index < byDateDesc.length - 1 ? index + 1 : 0;
+      setIndex(realIndex)
+      setRadioIndex(realIndex)
+    }
   };
+
   useEffect(() => {
-    nextCard();
-  });
+    // Synchronisation des index
+    setIndex(radioIndex);
+    const timeout = setInterval(() => {
+      nextCard()
+    }, 5000)
+    // Nettoyage de l'interval pour qu'au clic sur un
+    // bouton radio, le timer recommence à zéro
+    return () => {
+      clearInterval(timeout);
+    }
+  }, [byDateDesc, index, radioIndex]);
+
   return (
     <div className="SlideCardList">
       {byDateDesc?.map((event, idx) => (
@@ -49,9 +64,8 @@ const Slider = () => {
                   key={`btn: ${radioIdx * 1}`}
                   type="radio"
                   name="radio-button"
-                  checked={index === radioIdx}
-                  // onChange={(e) => setIndex(e.target.index)}
-                  readOnly
+                  checked={radioIndex === radioIdx}
+                  onChange={() => setRadioIndex(radioIdx)}
                 />
               ))}
             </div>
