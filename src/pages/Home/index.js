@@ -103,7 +103,7 @@ const Page = () => {
               <div>Message envoyé !</div>
               <p>
                 Merci pour votre message nous tâcherons de vous répondre dans
-                les plus brefs délais
+                les plus brefs délais !
               </p>
             </div>
           }

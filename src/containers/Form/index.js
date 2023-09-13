@@ -7,6 +7,7 @@ import Button, { BUTTON_TYPES } from "../../components/Button";
 const mockContactApi = () => new Promise((resolve) => { setTimeout(resolve, 1000); })
 
 const Form = ({ onSuccess, onError }) => {
+  
   const [sending, setSending] = useState(false);
   const sendContact = useCallback(
     async (evt) => {
@@ -16,6 +17,11 @@ const Form = ({ onSuccess, onError }) => {
       try {
         await mockContactApi();
         setSending(false);
+        // Ajout de la fonction onSuccess pour ouvrir
+        // la modale à la fin de l'envoi du formulaire
+        onSuccess();
+        // Reset des champs si le message est envoyé
+        evt.target.reset();
       } catch (err) {
         setSending(false);
         onError(err);
@@ -23,8 +29,9 @@ const Form = ({ onSuccess, onError }) => {
     },
     [onSuccess, onError]
   );
+
   return (
-    <form onSubmit={sendContact}>
+    <form onSubmit={sendContact} >
       <div className="row">
         <div className="col">
           <Field placeholder="" label="Nom" />
@@ -37,7 +44,7 @@ const Form = ({ onSuccess, onError }) => {
             titleEmpty
           />
           <Field placeholder="" label="Email" />
-          <Button type={BUTTON_TYPES.SUBMIT} disabled={sending}>
+          <Button type={BUTTON_TYPES.SUBMIT} disabled={sending} >
             {sending ? "En cours" : "Envoyer"}
           </Button>
         </div>

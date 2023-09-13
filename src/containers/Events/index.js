@@ -37,8 +37,7 @@ const EventList = () => {
     setType(evtType);
   };
 
-  // Ternaire pagination en fonction du nombre d'events affichés
-  const pageNumber = filteredEvents.length < 9 ? Math.ceil((filteredEvents?.length || 0) / paginate) : Math.ceil((filteredEvents?.length || 0) / paginate) + 1;
+  const pageNumber = Math.floor((filteredEvents?.length || 0) / paginate) +1
   const typeList = new Set(data?.events.map((event) => event.type));
 
   return (
