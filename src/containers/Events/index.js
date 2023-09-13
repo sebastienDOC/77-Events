@@ -18,11 +18,7 @@ const EventList = () => {
     new Date(evtA.date) > new Date(evtB.date) ? - 1 : 1
   );
   
-  const filteredEvents = (
-    (!type 
-      ? data?.events
-      : data?.events) || []
-  )
+  const filteredEvents = (data?.events || [])
   // Fonctionnement du filtre des events
   ?.filter((event) => type === null ? event : event.type === type)
   ?.filter((event, index) => {

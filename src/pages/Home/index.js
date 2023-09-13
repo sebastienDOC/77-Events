@@ -121,7 +121,8 @@ const Page = () => {
       <div className="col presta">
         <h3>Notre dernière prestation</h3>
         {/* Ajout modale au clic sur last event */}
-        <Modal Content={<ModalEvent event={lastEvent} />}>
+        {lastEvent?.cover && lastEvent?.title && (
+          <Modal Content={<ModalEvent event={lastEvent} />}>
           {({ setIsOpened }) => (
             <EventCard
               onClick={() => setIsOpened(true)}
@@ -133,6 +134,7 @@ const Page = () => {
             />
           )}
         </Modal>
+        )} 
       </div>
       <div className="col contact">
         <h3>Contactez-nous</h3>
