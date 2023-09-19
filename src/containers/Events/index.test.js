@@ -45,11 +45,14 @@ describe("When Events is created", () => {
         <Events />
       </DataProvider>
     );
-    await screen.findByText("avril");
+    // Multiples détections "avril"
+    // Ajout de All
+    await screen.findAllByText("avril");
   });
   describe("and an error occured", () => {
     it("an error message is displayed", async () => {
-      api.loadData = jest.fn().mockRejectedValue();
+      // .mockRejectedValue(new Error) simule un rejet
+      api.loadData = jest.fn().mockRejectedValue(new Error);
       render(
         <DataProvider>
           <Events />
@@ -59,7 +62,8 @@ describe("When Events is created", () => {
     });
   });
   describe("and we select a category", () => {
-    it.only("an filtered list is displayed", async () => {
+    // Unskip les tests à la suppression de only
+    it("an filtered list is displayed", async () => {
       api.loadData = jest.fn().mockReturnValue(data);
       render(
         <DataProvider>
