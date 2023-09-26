@@ -27,10 +27,17 @@ const EventList = () => {
     }
     return false;}
   );
-  
+
+  // Tracker type
+  // console.log(`type: ${type}`)
+  // Tracker du nombre d'éléments affichés sur la page après filtre
+  // console.log(`filteredEvents:  ${filteredEvents.length}`)
+
   const changeType = (evtType, ) => {
     setCurrentPage(1);
     setType(evtType);
+    // Tracker evtType
+    // console.log(`evtType : ${evtType}`) 
   };
 
   const pageNumber = Math.floor((filteredEvents?.length || 0) / paginate) +1

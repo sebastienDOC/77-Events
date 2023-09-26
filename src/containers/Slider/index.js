@@ -39,6 +39,11 @@ const Slider = () => {
     }
   }, [byDateDesc, index, radioIndex]);
 
+  // Test pour synchro index radio/slide
+  // useEffect(() => {
+  //  console.log(`index : ${index} /` , `radioIndex : ${radioIndex}`)
+  // },[radioIndex])
+
   return (
     <div className="SlideCardList">
       {byDateDesc?.map((event, idx) => (

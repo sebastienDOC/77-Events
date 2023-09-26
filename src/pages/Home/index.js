@@ -17,6 +17,8 @@ const Page = () => {
   const { data } = useData()
   // Dernier event de l'entreprise
   const lastEvent = data?.events.reduce((evtA, evtB) => (evtA.date > evtB.date ? evtA : evtB));
+  // Tracker lastEvent
+  // console.log(lastEvent)
 
   return <>
     <header>

@@ -16,10 +16,13 @@ const Select = ({
   const [collapsed, setCollapsed] = useState(true);
 
   const changeValue = (newValue) => { 
+    // Ajout valeur (newValue) pour envoyer sur onChange
     onChange(newValue);
     setValue(newValue);
     // Ajout de la fermeture de la collapse sur tous les boutons radios
     setCollapsed(!collapsed); 
+    // Tracker newValue
+    // console.log(`newValue : ${ newValue}`)
   };
   
   return (

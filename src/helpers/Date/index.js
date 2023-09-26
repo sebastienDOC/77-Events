@@ -1,3 +1,4 @@
+// Correction index
 export const MONTHS = {
   0: "janvier",
   1: "février",
