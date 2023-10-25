@@ -4,7 +4,6 @@ import { getMonth } from "../../helpers/Date";
 
 import "./style.scss";
 
-
 const Slider = () => {
   const { data } = useData();
   const [index, setIndex] = useState(0);
